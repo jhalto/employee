@@ -16,12 +16,13 @@ class Employee(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
+    image = models.ImageField(upload_to= 'employee_images', default= 'images.jpg')
     address = models.CharField(max_length=300)
     department = models.ForeignKey(Department, on_delete= models.SET_NULL, null= True, blank= True)
     manager = models.ForeignKey('self', on_delete= models.SET_NULL , null= True , blank= True)
      
     class Meta():
-        ordering = ['first_name']
+        ordering = ['id']
         # verbose_name_plural = "Daldfkja"
 
     def full_name(self):
