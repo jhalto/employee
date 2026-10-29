@@ -1,3 +1,70 @@
 
 
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/add_employee_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Add Employee</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Profile Image</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="department">Department</label>
+            <select id="department" name="department" required>
+                <option value="">Select Department</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}">
+                        {{ department }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="manager">Manager</label>
+            <select id="manager" name="manager">
+                <option value="">No Manager</option>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}">
+                        {{ employee.first_name }} {{ employee.last_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">Add Employee</button>
+        <a href="{% url 'employee_view' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}
