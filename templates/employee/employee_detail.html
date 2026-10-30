@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/employee_detail_style.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="employee-detail-container">
+
+    <div class="employee-header">
+        <h1>Employee Details</h1>
+        <a href="{% url 'employee_view' %}" class="back-btn">
+            ← Back to Employees
+        </a>
+    </div>
+
+    <div class="employee-card">
+
+        <div class="profile-section">
+            {% if employee.image %}
+                <img src="{{ employee.image.url }}" alt="Profile Picture">
+            {% else %}
+                <div class="default-avatar">
+                    {{ employee.first_name|first|upper }}
+                </div>
+            {% endif %}
+
+            <h2>{{ employee.first_name }} {{ employee.last_name }}</h2>
+            <p>{{ employee.designation|default:"Employee" }}</p>
+        </div>
+
+        <div class="employee-info">
+
+            <div class="info-item">
+                <span>Employee ID</span>
+                <strong>{{ employee.id }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>First Name</span>
+                <strong>{{ employee.first_name }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Last Name</span>
+                <strong>{{ employee.last_name }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Email</span>
+                <strong>{{ employee.email }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Phone</span>
+                <strong>{{ employee.phone|default:"Not provided" }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Address</span>
+                <strong>{{ employee.address|default:"Not provided" }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Department</span>
+                <strong>{{ employee.department|default:"Not assigned" }}</strong>
+            </div>
+
+            <div class="info-item">
+                <span>Manager</span>
+                <strong>{{ employee.manager|default:"Not assigned" }}</strong>
+            </div>
+
+        </div>
+
+        <div class="action-buttons">
+            <a href="{% url 'employee_edit' employee.id %}" class="edit-btn">
+                Edit Employee
+            </a>
+
+            <a href="{% url 'employee_view' %}" class="back-btn">
+                Close
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'employee_edit.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h1>Edit Employee</h1>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Update Employee</button>
+
+        <a href="{% url 'employee_view' %}">Cancel</a>
+
+    </form>
+
+    <form action="{% url 'employee_delete' employee.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+
+</div>
+
+
+{% endblock %}

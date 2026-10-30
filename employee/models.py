@@ -18,6 +18,7 @@ class Employee(models.Model):
     email = models.EmailField()
     image = models.ImageField(upload_to= 'employee_images', default= 'images.jpg')
     address = models.CharField(max_length=300)
+    joining_date = models.DateField(null=True, blank= True)
     department = models.ForeignKey(Department, on_delete= models.SET_NULL, null= True, blank= True)
     manager = models.ForeignKey('self', on_delete= models.SET_NULL , null= True , blank= True)
      

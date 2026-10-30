@@ -11,10 +11,9 @@
 <div class="form-container">
     <h1>Add Employee</h1>
 
-    <form method="POST" enctype="multipart/form-data">
+    <!-- <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <div class="form-group">
             <label for="first_name">First Name</label>
             <input type="text" id="first_name" name="first_name" required>
         </div>
@@ -65,6 +64,16 @@
 
         <button type="submit">Add Employee</button>
         <a href="{% url 'employee_view' %}">Cancel</a>
+    </form> -->
+
+    <form action="{% url 'employee_add' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} 
+
+        {{form.as_p}}
+
+         <button type="submit"> Add Employee</button>
     </form>
+       
+
 </div>
 {% endblock %}

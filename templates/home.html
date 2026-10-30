@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
 {% block content %}
-<a href="{% url 'employee_add' %}"><button>Add Emplooyee</button></a> 
+<a href="{% url 'employee_add' %}"><button>Add Emplooyee</button></a>
 
 
 <table>
@@ -13,18 +15,31 @@
             <th>address</th>
             <th>department</th>
             <th>manager</th>
+            <th>Action</th>
         </tr>
     </thead>
 
     <tbody>
         {% for employee in employee %}
         <tr>
-            <td> <img class="image" src="{{ employee.image.url }}" alt="{{ employee.first_name }}" width="50" height="50"></td>
+            <td> <img class="image" src="{{ employee.image.url }}" alt="{{ employee.first_name }}" width="50"
+                    height="50"></td>
             <td>{{ employee.first_name }} {{ employee.last_name }}</td>
             <td>{{ employee.email }}</td>
             <td>{{ employee.address }}</td>
             <td>{{ employee.department }}</td>
             <td>{{ employee.manager }}</td>
+            <td>
+                <a href="{% url 'employee_detail' employee.id %}"><i class="fa fa-eye"></i></a>
+                <a href="{% url 'employee_edit' employee.id %}"><i class="fa fa-edit"></i></a>
+                
+                <form action="{% url 'employee_delete' employee.id  %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit"><i class="fa fa-close"></i></button>
+                </form>
+
+
+            </td>
         </tr>
         {% endfor %}
     </tbody>
